@@ -28,14 +28,14 @@ def long_page(monkeypatch):
 
 async def read(**kwargs):
     """Call the tool function directly with an explicit max_length and start_index."""
-    return await server.read_documentation(AsyncMock(), URL, **kwargs)
+    return await server.read_documentation(URL, **kwargs)
 
 
 @pytest.mark.asyncio
 async def test_tool_schema_exposes_pagination():
     """Agents can only page if the tool schema advertises the parameters."""
     tool = next(t for t in await server.mcp.list_tools() if t.name == 'read_documentation')
-    properties = tool.inputSchema['properties']
+    properties = tool.input_schema['properties']
     assert properties['max_length']['default'] == 5000
     assert properties['start_index']['default'] == 0
 
