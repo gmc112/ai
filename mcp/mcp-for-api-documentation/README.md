@@ -199,14 +199,19 @@ Fetch and convert a specific PDP documentation page to markdown format.
 **Function Signature:**
 ```python
 read_documentation(
-    url: str            # URL of the documentation page to read
-) -> str                # Returns markdown-formatted content
+    url: str,               # URL of the documentation page to read
+    max_length: int = 5000, # Maximum characters to return (1-100000)
+    start_index: int = 0    # Character offset to start reading from
+) -> str                    # Returns markdown-formatted content
 ```
 
 **Example Usage:**
 ```python
 # Read a specific documentation page
 content = read_documentation("https://developer.payments.jpmorgan.com/docs/commerce/...")
+
+# Long pages end with a note naming the next start_index; pass it to continue
+more = read_documentation("https://developer.payments.jpmorgan.com/docs/commerce/...", start_index=5000)
 ```
 
 ### 🔗 related
